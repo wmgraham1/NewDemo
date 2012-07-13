@@ -63,6 +63,8 @@
 
    <br />      
   
-  <input type="submit" value="Update" />&nbsp;&nbsp;&nbsp;<a href ="/notes/delete/{{ note.key().id() }}">Delete Note</a>
+  <input type="submit" value="Update" />&nbsp;&nbsp;&nbsp;
+  <input type='button' name='Delete' value="Delete" onClick='locaton.href="/notes/delete/{{ note.key().id() }}";'>
+  <a href ="/notes/delete/{{ note.key().id() }}">Delete Note</a>
 </form>
 {% endblock content %}

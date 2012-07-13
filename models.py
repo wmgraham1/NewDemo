@@ -19,6 +19,7 @@ class Notes(db.Model):
   priority = db.StringProperty()
   status = db.StringProperty()
   date = db.DateTimeProperty(auto_now_add=True)
+  whichuser = db.UserProperty()
 
   
 #class Greeting(db.Model):

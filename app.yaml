@@ -16,6 +16,7 @@ handlers:
   static_dir: css
 - url: .*
   script: main.app
+#  login: required
 
 libraries:
 - name: webapp2
