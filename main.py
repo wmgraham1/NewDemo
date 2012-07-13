@@ -21,6 +21,10 @@ import homepage
 import pageadmin
 import aboutpage
 import contactpage
+#import notes
+#import views
+from views import MainPage, CreateNote, DeleteNote, EditNote
+
 
 # Below code is what the original exercise included
 #class MainHandler(webapp2.RequestHandler):
@@ -31,12 +35,14 @@ app = webapp2.WSGIApplication([
 	('/', homepage.ViewHomePage),
 	('/about', aboutpage.ViewAboutPage),
 	('/content', pageadmin.ViewContentPage),
-	('/contact', contactpage.ViewContactPage)
+	('/contact', contactpage.ViewContactPage),
+    ('/notes', MainPage),
+    ('/notes/create', CreateNote), 
+    ('/notes/edit/([\d]+)', EditNote),
+    ('/notes/delete/([\d]+)', DeleteNote)
 	],
                               debug=True)
-
-
-							  
+		  
 
 
 # below is the code that worked with Python (not 2.7)

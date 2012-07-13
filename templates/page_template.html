@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/static/css/reset.css">
 <title>Simple Test of inserting content in a template</title>
 </head>
 
@@ -13,16 +14,20 @@
     	<a href="/">Home</a>
         <a href="/content">Page Content Admin</a>
         <a href="/about">About us</a>
+        <a href="/notes">Notes</a>
         <a href="/contact">Contact Us</a>
     </div>
     <div id="contentColumn">
-		
-  <!-- This is an entry, copy and paste it to create a new one -->      
-		<div class="divider"></div>
+
+    <div class="wrapper">
+    {% block content %}
+    {% endblock content %}
+    </div>	
+
+	<div class="divider"></div>
         <p>This is just before the variable content.</p>
 		<h2> {{ content1  }} </h2>
         <p>This is just after the variable content.</p>
-        
     </div>
  
   

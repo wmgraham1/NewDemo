@@ -2,7 +2,7 @@ import webapp2
 from google.appengine.ext.webapp import template
 #from google.appengine.ext.db import djangoforms
 
-#import models
+import models
 
 #class PageContentForm(djangoforms.ModelForm):
 #  class Meta:
