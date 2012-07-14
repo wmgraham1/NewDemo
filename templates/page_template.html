@@ -11,6 +11,18 @@
   <div id="main">
   	<h1>Sample Application Framework</h1>
   	<div id="header">
+
+          {% if currentuser %} 
+          {{currentuser}}
+          {% if logout %} 
+    <a href="{{logout}}">Logout</a>
+          {% endif %} 
+          {% else %} 
+          {% if login %} 
+    <a href="{{login}}">Login</a>
+          {% endif %} 
+          {% endif %} 
+
     	<a href="/">Home</a>
         <a href="/content">Page Content Admin</a>
         <a href="/about">About us</a>

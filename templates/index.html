@@ -11,7 +11,8 @@
       <th>Priority</th>
       <th>Status</th>
       <th>Created</th>
-      <th>CreatedBy</th>
+      <th>CreatedBy (user)</th>
+      <th>CreatedBy (system)</th>
       <th>Edit</th>
     </tr>
   </thead>
@@ -23,6 +24,7 @@
 	  <td> {{ note.status }} </td>
 	  <td> {{ note.date.strftime('%Y-%m-%d')  }} </td>
 	  <td> {{ note.author }} </td>
+	  <td> {{ note.whichuser }} </td>
 	  <td><a href ="/notes/edit/{{ note.key().id() }}">edit </a></td>
     </tr>
     {% endfor %}	

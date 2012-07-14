@@ -3,6 +3,7 @@ import os
 import webapp2
 from datetime import datetime
 from google.appengine.ext import db
+from google.appengine.api import users
 
 from models import Notes
 
@@ -31,7 +32,14 @@ class MainPage(BaseHandler):
 
     def get(self):
         notes = Notes.all()
-        self.render_template('index.html', {'notes': notes})
+        logout = None
+        login = None
+        currentuser = users.get_current_user()
+        if currentuser:
+              logout = users.create_logout_url('/notes/create' )
+        else:
+              login = users.create_login_url('/notes/create')
+        self.render_template('index.html', {'notes': notes,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
 class CreateNote(BaseHandler):
@@ -40,12 +48,22 @@ class CreateNote(BaseHandler):
         n = Notes(author=self.request.get('author'),
                   text=self.request.get('text'),
                   priority=self.request.get('priority'),
-                  status=self.request.get('status'))
+                  status=self.request.get('status')
+                  , whichuser=users.get_current_user()
+                  )
+
         n.put()
         return webapp2.redirect('/notes')
 
     def get(self):
-        self.render_template('create.html', {})
+        logout = None
+        login = None
+        currentuser = users.get_current_user()
+        if currentuser:
+              logout = users.create_logout_url('/notes/create' )
+        else:
+              login = users.create_login_url('/notes/create')
+        self.render_template('create.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
 class EditNote(BaseHandler):
@@ -53,6 +71,10 @@ class EditNote(BaseHandler):
     def post(self, note_id):
         iden = int(note_id)
         note = db.get(db.Key.from_path('Notes', iden))
+        currentuser = users.get_current_user()
+        if currentuser != note.whichuser and not users.is_current_user_admin():
+            self.abort(403)
+            return
         note.author = self.request.get('author')
         note.text = self.request.get('text')
         note.priority = self.request.get('priority')
@@ -64,7 +86,18 @@ class EditNote(BaseHandler):
     def get(self, note_id):
         iden = int(note_id)
         note = db.get(db.Key.from_path('Notes', iden))
-        self.render_template('edit.html', {'note': note})
+        currentuser = users.get_current_user()
+        if currentuser != note.whichuser and not users.is_current_user_admin():
+            self.abort(403)
+            return
+        logout = None
+        login = None
+        currentuser = users.get_current_user()
+        if currentuser:
+              logout = users.create_logout_url('/notes/create' )
+        else:
+              login = users.create_login_url('/notes/create')
+        self.render_template('edit.html', {'note': note,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
 class DeleteNote(BaseHandler):
@@ -72,5 +105,9 @@ class DeleteNote(BaseHandler):
     def get(self, note_id):
         iden = int(note_id)
         note = db.get(db.Key.from_path('Notes', iden))
+        currentuser = users.get_current_user()
+        if currentuser != note.whichuser and not users.is_current_user_admin():
+            self.abort(403)
+            return
         db.delete(note)
         return webapp2.redirect('/notes')

@@ -1,5 +1,5 @@
 application: edutry1
-version: 1
+version: 2-ralph-with-login-support
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -14,6 +14,20 @@ handlers:
   static_dir: static
 - url: /css
   static_dir: css
+
+- url: /notes/create
+  script: main.app
+#  login: admin
+  login: required
+
+- url: /notes/edit/.*
+  script: main.app
+  login: required
+
+- url: /notes/delete/.*
+  script: main.app
+  login: required
+
 - url: .*
   script: main.app
 #  login: required
