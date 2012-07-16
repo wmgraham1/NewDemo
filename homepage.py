@@ -22,9 +22,9 @@ class ViewHomePage(webapp2.RequestHandler):
             login = None
             currentuser = users.get_current_user()
             if currentuser:
-                  logout = users.create_logout_url('/notes/create' )
+                  logout = users.create_logout_url('/' )
             else:
-                  login = users.create_login_url('/notes/create')
+                  login = users.create_login_url('/')
             template_values = {
                 'content1': html,'currentuser':currentuser, 'login':login, 'logout': logout
             }

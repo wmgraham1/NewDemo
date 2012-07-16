@@ -36,7 +36,7 @@ class MainPage(BaseHandler):
         login = None
         currentuser = users.get_current_user()
         if currentuser:
-              logout = users.create_logout_url('/notes/create' )
+              logout = users.create_logout_url('/notes' )
         else:
               login = users.create_login_url('/notes/create')
         self.render_template('index.html', {'notes': notes,'currentuser':currentuser, 'login':login, 'logout': logout})
@@ -60,7 +60,7 @@ class CreateNote(BaseHandler):
         login = None
         currentuser = users.get_current_user()
         if currentuser:
-              logout = users.create_logout_url('/notes/create' )
+              logout = users.create_logout_url('/notes' )
         else:
               login = users.create_login_url('/notes/create')
         self.render_template('create.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
@@ -94,9 +94,9 @@ class EditNote(BaseHandler):
         login = None
         currentuser = users.get_current_user()
         if currentuser:
-              logout = users.create_logout_url('/notes/create' )
+              logout = users.create_logout_url('/notes' )
         else:
-              login = users.create_login_url('/notes/create')
+              login = users.create_login_url('/notes')
         self.render_template('edit.html', {'note': note,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
