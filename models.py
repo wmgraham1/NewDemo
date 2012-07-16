@@ -21,6 +21,25 @@ class Notes(db.Model):
   date = db.DateTimeProperty(auto_now_add=True)
   whichuser = db.UserProperty()
 
+class Obj(db.Model):
+  oid = db.IntegerProperty(long)
+  className = db.StringProperty()
+  createdDate = db.DateTimeProperty(auto_now_add=True)
+  createdBy = db.UserProperty()
+  updatedDate = db.DateTimeProperty(auto_now_add=True)
+  updatedBy = db.UserProperty()
+  status = db.IntegerProperty()  
+  statusDate = db.DateTimeProperty(auto_now_add=True)
+  statusBy = db.UserProperty()
+
+class TokenValues(db.Model):
+  templateName = db.StringProperty()
+  langCode = db.StringProperty()
+  tknID = db.StringProperty()
+  tknValue = db.StringProperty()
+  date = db.DateTimeProperty(auto_now_add=True)
+  whichuser = db.UserProperty()
+
   
 #class Greeting(db.Model):
 #  """Models an individual Guestbook entry with an author, content, and date."""

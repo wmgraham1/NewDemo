@@ -24,6 +24,7 @@ import contactpage
 #import notes
 #import views
 from views import MainPage, CreateNote, DeleteNote, EditNote
+from TokenTest1 import TknMainPage, CreateTkn, DeleteTkn, EditTkn
 
 
 # Below code is what the original exercise included
@@ -39,7 +40,11 @@ app = webapp2.WSGIApplication([
     ('/notes', MainPage),
     ('/notes/create', CreateNote), 
     ('/notes/edit/([\d]+)', EditNote),
-    ('/notes/delete/([\d]+)', DeleteNote)
+    ('/notes/delete/([\d]+)', DeleteNote),
+    ('/tokens', TknMainPage),
+    ('/tokens/create', CreateTkn), 
+    ('/tokens/edit/([\d]+)', EditTkn),
+    ('/tokens/delete/([\d]+)', DeleteTkn)
 	],
                               debug=True)
 		  
