@@ -1,6 +1,11 @@
 {% extends "page_template.html" %}
 {% block content %}
 
+<!--
+<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+-->
+
 <form action="" method="post">
   <div class="field-wrapper">
     
@@ -22,8 +27,42 @@
     </div>
     
     <div class="field-field">
-      <input type="text" name="text" value="{{ note.text }}" id="id_text" />
-      
+      <!-- <input type="text" name="text" value="{{ note.text }}" id="id_text" /> -->
+	    <div>
+      <!-- <textarea class="field-field" rows="10" cols="50" id="id_text" name="text" >{{ note.text }}</textarea> -->
+      <textarea class="field-field" rows="10" cols="50" id="id_text" name="text" >{{ note.text }}</textarea>
+	  <!-- <textarea style="width: 300px; height: 100px;" id="myArea2"></textarea> -->
+      <br />
+      <button onclick="addArea2();">Add Editor to TEXTAREA</button> 
+      <button onclick="removeArea2();">Remove Editor from TEXTAREA</button>
+    </div>
+    <div style="clear: both;"></div>
+    <script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script> 
+    <script type="text/javascript">
+//<![CDATA[
+  var area1, area2;
+ 
+  function toggleArea1() {
+        if(!area1) {
+                area1 = new nicEditor({fullPanel : true}).panelInstance('myArea1',{hasPanel : true});
+        } else {
+                area1.removeInstance('myArea1');
+                area1 = null;
+        }
+  }
+ 
+  function addArea2() {
+        area2 = new nicEditor({fullPanel : true}).panelInstance('id_text');
+  }
+  function removeArea2() {
+        area2.removeInstance('id_text');
+  }
+ 
+  bkLib.onDomLoaded(function() { toggleArea1(); });
+  //]]>
+  </script>
+
+	  
     </div>
     
   </div>
