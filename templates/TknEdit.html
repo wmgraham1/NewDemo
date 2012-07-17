@@ -7,7 +7,8 @@
       <label for="id_template">Template</label>:
     </div>
     <div class="field-field">
-      <input type="text" name="templateName" id="id_template" value="{{ token.templateName }}" />
+      <input type="hidden" name="templateName" id="id_template" value="{{ token.templateName }}" />
+	  {{ token.templateName }}
     </div>
   </div>
 
@@ -16,11 +17,8 @@
       <label for="id_language">Language Code</label>:
     </div>
     <div class="field-field">
-      <select name="langCode" id="id_language">
-        <option value="en" selected="selected">English</option>
-        <option value="de">German</option>
-        <option value="el">Greek</option>
-      </select>
+	  <input type="hidden" name="langCode" id="id_language" value="{{ token.langCode }}" />
+	  {{ token.langCode }}
     </div>
   </div>
   
@@ -29,7 +27,9 @@
       <label for="id_token">Token Nbr</label>:
     </div>
     <div class="field-field">
-      <input type="text" name="tknID" id="id_token" value="{{ token.tknID }}" />
+      <input type="hidden" name="tknID" id="id_token" value="{{ token.tknID }}" />
+  	  {{ token.tknID }}
+
     </div>
   </div>
   
@@ -38,7 +38,7 @@
       <label for="id_tknval">Token Value</label>:
     </div>
     <div class="field-field">
-      <input type="text" name="tknValue" id="id_tknvalue" value="{{ token.tknValue }}" />
+      <input type="text" name="tknValue" id="id_tknvalue" size="120" value="{{ token.tknValue }}" />
     </div>   
   </div>
 
