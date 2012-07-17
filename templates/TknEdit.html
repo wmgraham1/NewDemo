@@ -7,8 +7,12 @@
       <label for="id_template">Template</label>:
     </div>
     <div class="field-field">
-      <input type="hidden" name="templateName" id="id_template" value="{{ token.templateName }}" />
-	  {{ token.templateName }}
+	  {% if token.langCode == 'en' %} 
+        <input type="text" name="templateName" id="id_template" value="{{ token.templateName }}" />
+      {% else %}
+        <input type="hidden" name="templateName" id="id_template" value="{{ token.templateName }}" />
+	    {{ token.templateName }}
+      {% endif %}
     </div>
   </div>
 
@@ -27,9 +31,12 @@
       <label for="id_token">Token Nbr</label>:
     </div>
     <div class="field-field">
-      <input type="hidden" name="tknID" id="id_token" value="{{ token.tknID }}" />
-  	  {{ token.tknID }}
-
+	  {% if token.langCode == 'en' %} 
+        <input type="text" name="tknID" id="id_token" value="{{ token.tknID }}" />
+      {% else %}
+        <input type="hidden" name="tknID" id="id_token" value="{{ token.tknID }}" />
+	    {{ token.tknID }}
+      {% endif %}
     </div>
   </div>
   
@@ -42,7 +49,7 @@
     </div>   
   </div>
 
-   <br />      
+<br />      
   
   <input type="submit" value="Update" />&nbsp;&nbsp;&nbsp;
   <input type='button' name='Delete' value="Delete" onClick='locaton.href="/tokens/tknDelete/{{ token.key().id() }}";'>
