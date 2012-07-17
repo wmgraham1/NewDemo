@@ -62,7 +62,7 @@ class CreateTkn(TknBaseHandler):
         if currentuser:
               logout = users.create_logout_url('/tokens' )
         else:
-              login = users.create_login_url('/tokens/CreateTkn')
+              login = users.create_login_url('/tokens/create')
         self.render_template('TknCreate.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
