@@ -15,7 +15,7 @@ class PageContent(db.Model):
   
 class Notes(db.Model):
   author = db.StringProperty()
-  text = db.StringProperty(multiline=True)
+  text = db.TextProperty()
   priority = db.StringProperty()
   status = db.StringProperty()
   date = db.DateTimeProperty(auto_now_add=True)
