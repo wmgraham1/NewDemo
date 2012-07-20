@@ -15,7 +15,7 @@ html = 'This is more new about us content.'
 
 class ViewAboutPage(webapp2.RequestHandler):
     def get(self):
-        iden = int(1)
+        iden = int(2)
         note = db.get(db.Key.from_path('Notes', iden))
         template_values = {
             'content1': note.text

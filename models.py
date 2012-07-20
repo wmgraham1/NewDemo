@@ -6,6 +6,11 @@ import webapp2
 from google.appengine.ext import db
 from google.appengine.api import users
 
+class Languages(db.Model):
+  langCode = db.StringProperty()
+  langCode3 = db.StringProperty()
+  langName = db.StringProperty()
+ 
 class PageContent(db.Model):
   """Models an individual pagecontent block with page name, content, createdby and createddate."""
   pagename = db.StringProperty()

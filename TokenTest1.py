@@ -6,6 +6,7 @@ from google.appengine.ext import db
 from google.appengine.api import users
 
 from models import TokenValues
+from models import Languages
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = \
