@@ -26,6 +26,7 @@ import contactpage
 from views import MainPage, CreateNote, DeleteNote, EditNote
 from TokenTest1 import TknMainPage, CreateTkn, DeleteTkn, EditTkn
 from Language import LangList, LangCreate, LangEdit, LangDelete
+from Template import TemplateList, TemplateCreate, TemplateEdit, TemplateDelete
 
 
 # Below code is what the original exercise included
@@ -49,7 +50,11 @@ app = webapp2.WSGIApplication([
     ('/langs', LangList),
     ('/langs/create', LangCreate), 
     ('/langs/edit/([\d]+)', LangEdit),
-    ('/langs/delete/([\d]+)', LangDelete)
+    ('/langs/delete/([\d]+)', LangDelete),
+    ('/templates', TemplateList),
+    ('/templates/create', TemplateCreate), 
+    ('/templates/edit/([\d]+)', TemplateEdit),
+    ('/templates/delete/([\d]+)', TemplateDelete)
 	],
                               debug=True)
 		  

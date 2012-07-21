@@ -10,6 +10,16 @@ class Languages(db.Model):
   langCode = db.StringProperty()
   langCode3 = db.StringProperty()
   langName = db.StringProperty()
+  
+class Templates(db.Model):
+  Name = db.StringProperty()
+  Description = db.StringProperty()
+  FileName = db.StringProperty()
+  CreatedBy = db.UserProperty()
+  CreatedDate = db.DateTimeProperty(auto_now_add=True)
+  Status = db.StringProperty()
+  StatusBy = db.UserProperty()
+  StatusDate = db.DateTimeProperty()
  
 class PageContent(db.Model):
   """Models an individual pagecontent block with page name, content, createdby and createddate."""
