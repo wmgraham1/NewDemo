@@ -34,19 +34,31 @@ class TknBaseHandler(webapp2.RequestHandler):
 class TknStep1Page(TknBaseHandler):
 
     def get(self):
-        tokens = TokenValues.all()
-        countmap={}
+        languages = Languages.all()
+
+        countmap_en={}
+        langCode='en'
+        tokens = TokenValues.all().filter('langCode =', langCode)
         for token in tokens:
             logging.info('QQQ: token: %s' % token.langCode)
-            if token.langCode in countmap:
-                    countmap[token.langCode]=countmap[token.langCode]+1
+            if token.templateName in countmap_en:
+                    countmap_en[token.templateName]=countmap_en[token.templateName]+1
             else:
-                    countmap[token.langCode]=1
-        #tokens = TokenValues.query()
+                    countmap_en[token.templateName]=1
+
+        countmap_other_language={}
+        langCode = 'de'
         if self.request.get('langCode'):
             langCode=self.request.get('langCode')
-            #tokens = TokenValues.query(TokenValues.langCode == langCode)
-            tokens = tokens.filter('langCode =', langCode)
+        if langCode != 'en':    
+            tokens = TokenValues().all().filter('langCode =', langCode)
+            for token in tokens:
+                logging.info('QQQ: token: %s' % token.langCode)
+                if token.templateName in countmap_other_language:
+                        countmap_other_language[token.templateName]=countmap_other_language[token.templateName]+1
+                else:
+                        countmap_other_language[token.templateName]=1
+
         logout = None
         login = None
         currentuser = users.get_current_user()
@@ -54,7 +66,7 @@ class TknStep1Page(TknBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens/create')
-        self.render_template('TknStep1.html', {'countmap':countmap, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TknStep1.html', {'languages':languages, 'langCode':langCode, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 class TknMainPage(TknBaseHandler):
 

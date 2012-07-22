@@ -1,21 +1,41 @@
 {% extends "page_template.html" %}
 {% block content %}
-<!-- <hr/>countmap: {{countmap}} -->
+<form method="GET">
+<select name="langCode">
+    {% for language in languages %}
+		    <option value="{{language.langCode}}" 
+            {% if language.langCode == langCode %}
+            selected="selected"
+            {% endif %}
+            >{{language.langName}}</option>
+    {% endfor %}
+</select>
+<br/><input type="submit">
+</form>
 <h2 style="text-align: center;">Step1: Template Token Language Count</h2>
 <table width = 100% border=2 cellspacing=0 cellpadding=2>
   <thead>
     <tr>
       <!-- <th>Template/Language</th> -->
+      <th>Template</th>
       <th>Language</th>
       <th>Count</th>
       <th>Clone</th>
     </tr>
   </thead>
   <tbody>
-    {% for key in countmap %}
+    {% for key in countmap_en %}
 	<tr>
-	  <td><big> <a href="/tokens?langCode={{key}}">{{key}}</a> </big></td>
-	  <td> {{countmap[key]}} </td>
+	  <td><big> <a href="/tokens?langCode=en">{{key}}</a> </big></td>
+	  <td><big> <a href="/tokens?langCode=en">en</a> </big></td>
+	  <td> {{countmap_en[key]}} </td>
+    </tr>
+    {% endfor %}	
+    {% for key in countmap_other_language %}
+	<tr>
+	  <td><big> <a href="/tokens?langCode=en">{{key}}</a> </big></td>
+	  <td><big> <a href="/tokens?langCode=en">{{langCode}}</a> </big></td>
+	  <td> {{countmap_other_language[key]}} </td>
     </tr>
     {% endfor %}	
   </tbody>
