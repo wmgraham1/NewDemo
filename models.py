@@ -4,6 +4,7 @@ import urllib
 import webapp2
 
 from google.appengine.ext import db
+from google.appengine.ext import ndb
 from google.appengine.api import users
 
 class Languages(db.Model):
@@ -47,6 +48,14 @@ class Obj(db.Model):
   statusDate = db.DateTimeProperty(auto_now_add=True)
   statusBy = db.UserProperty()
 
+#  We should use ndb but seems to have issues with jinja2
+# class TokenValues(ndb.Model):
+#   templateName = ndb.StringProperty()
+#   langCode = ndb.StringProperty()
+#   tknID = ndb.StringProperty()
+#   tknValue = ndb.StringProperty()
+#   date = ndb.DateTimeProperty(auto_now_add=True)
+#   whichuser = ndb.UserProperty()
 class TokenValues(db.Model):
   templateName = db.StringProperty()
   langCode = db.StringProperty()
