@@ -1,8 +1,10 @@
 import jinja2
 import os
 import webapp2
+import logging
 from datetime import datetime
 from google.appengine.ext import db
+from google.appengine.ext import ndb
 from google.appengine.api import users
 
 from models import TokenValues
@@ -29,10 +31,40 @@ class TknBaseHandler(webapp2.RequestHandler):
         self.response.out.write(template.render(template_values))
 
 
+class TknStep1Page(TknBaseHandler):
+
+    def get(self):
+        tokens = TokenValues.all()
+        countmap={}
+        for token in tokens:
+            logging.info('QQQ: token: %s' % token.langCode)
+            if token.langCode in countmap:
+                    countmap[token.langCode]=countmap[token.langCode]+1
+            else:
+                    countmap[token.langCode]=1
+        #tokens = TokenValues.query()
+        if self.request.get('langCode'):
+            langCode=self.request.get('langCode')
+            #tokens = TokenValues.query(TokenValues.langCode == langCode)
+            tokens = tokens.filter('langCode =', langCode)
+        logout = None
+        login = None
+        currentuser = users.get_current_user()
+        if currentuser:
+              logout = users.create_logout_url('/tokens' )
+        else:
+              login = users.create_login_url('/tokens/create')
+        self.render_template('TknStep1.html', {'countmap':countmap, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+
 class TknMainPage(TknBaseHandler):
 
     def get(self):
         tokens = TokenValues.all()
+        #tokens = TokenValues.query()
+        if self.request.get('langCode'):
+            langCode=self.request.get('langCode')
+            #tokens = TokenValues.query(TokenValues.langCode == langCode)
+            tokens = tokens.filter('langCode =', langCode)
         logout = None
         login = None
         currentuser = users.get_current_user()
