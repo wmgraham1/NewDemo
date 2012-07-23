@@ -24,10 +24,19 @@ class Templates(db.Model):
  
 class PageContent(db.Model):
   """Models an individual pagecontent block with page name, content, createdby and createddate."""
-  pagename = db.StringProperty()
-  textContent = db.StringProperty(multiline=True)
-  createdby = db.StringProperty()
-  createddate = db.DateTimeProperty(auto_now_add=True)
+  TemplateName = db.StringProperty()
+  TokenTag = db.StringProperty()
+  LangCode = db.StringProperty()
+  ContentText = db.StringProperty(multiline=True)
+  CreatedBy = db.StringProperty()
+  CreatedDate = db.DateTimeProperty(auto_now_add=True)
+  UpdatedBy = db.UserProperty()
+  UpdatedDate = db.DateTimeProperty()
+  Status = db.StringProperty()
+  StatusBy = db.UserProperty()
+  StatusDate = db.DateTimeProperty()
+  LangName = db.StringProperty()
+
   
 class Notes(db.Model):
   author = db.StringProperty()
@@ -36,7 +45,7 @@ class Notes(db.Model):
   status = db.StringProperty()
   date = db.DateTimeProperty(auto_now_add=True)
   whichuser = db.UserProperty()
-
+  
 class Obj(db.Model):
   oid = db.IntegerProperty(long)
   className = db.StringProperty()

@@ -39,7 +39,7 @@ padding-top:35px;
 
 #main
 {
-width:641px;
+width:961px;
 height:auto;
 padding-bottom:20px;
 }
@@ -106,15 +106,16 @@ width:961px;
 #navColumn
 {
 float:left;
-width:200px;
+#width:200px;
+width:20px;
 padding-top:50px;
 }
 #contentColumn p
 {
 text-align:left;
-line-height:25px;
-letter-spacing:-1px;
-margin:6px;
+#line-height:25px;
+#letter-spacing:-1px;
+#margin:6px;
 }
 
 
@@ -149,10 +150,8 @@ ul,  li
 {
 text-align:center;
 padding:3px;
-list-style-image:url(link_image.png);
+#list-style-image:url(link_image.png);
 }
-
-
 
 a, a:visited
 {
@@ -164,5 +163,25 @@ a:hover
 {
 color:#9B1313;
 border-bottom:dashed 1px #DD6A6A;
+}
+
+.PageContentBlock p
+{
+text-align:left;
+#line-height:6px;
+letter-spacing:0px;
+margin-top:10px;
+}
+
+.PageContentBlock li
+{
+text-align:left;
+letter-spacing:0px;
+margin-top:4px;
+}
+
+.PageContentBlock ol, ul
+{
+type: "1";
 }
 

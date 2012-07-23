@@ -1,0 +1,35 @@
+{% extends "page_template.html" %}
+{% block content %}
+<br/>
+<h2 style="text-align: center;">List of Content Blocks</h2>
+<p><a href="/contentblocks/create">Add New Content Block</a> </p>
+
+<table width = 100% border=2 cellspacing=0 cellpadding=2>
+  <thead>
+    <tr>
+      <th>TemplateName</th>
+      <th>TokenTag</th>
+      <th>Status</th>
+      <th>Status Date</th>
+      <th>Created Date</th>
+      <th>CreatedBy</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contentblock in contentblocks %}
+	<tr>
+	  <td><big> {{ contentblock.TemplateName }} </big></td>
+	  <td> {{ contentblock.TokenTag }} </td>
+	  <td> {{ contentblock.Status }} </td>
+	  <td> {{ contentblock.StatusDate.strftime('%Y-%m-%d')  }} </td>
+	  <td> {{ contentblock.CreatedDate.strftime('%Y-%m-%d')  }} </td>
+	  <td> {{ contentblock.CreatedBy }} </td>
+	  <td><a href ="/contentblocks/edit/{{ contentblock.key().id() }}">edit </a></td>
+    </tr>
+    {% endfor %}	
+  </tbody>
+ </table>
+
+<p><a href="/contentblocks/create">Add New Content Block</a> </p>
+{% endblock content %}
