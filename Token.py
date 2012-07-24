@@ -71,9 +71,9 @@ class TokenStep1Page(TokenBaseHandler):
 class TokenList(TokenBaseHandler):
 
     def get(self):
-        langCode='en'
+        #langCode='en'
         langCode=self.request.get('langCode')
-        templateName='khan-exercise'
+        #templateName='khan-exercise'
         templateName=self.request.get('templateName')
         q = db.GqlQuery("SELECT * FROM TokenValues " + 
                 "WHERE langCode = :1 AND templateName = :2 " +
@@ -100,15 +100,18 @@ class TokenList(TokenBaseHandler):
 class TokenCreate(TokenBaseHandler):
 
     def post(self):
-        n = TokenValues(templateName=self.request.get('templateName'),
-                  langCode=self.request.get('langCode'),
-                  tknID=self.request.get('tknID'),
-                  tknValue=self.request.get('tknValue')
-                  , whichuser=users.get_current_user()
-                  )
+        templateName = self.request.get('templateName')
+        langCode = self.request.get('langCode')
+        n = TokenValues(templateName=templateName,
+                langCode=langCode,
+                tknID=self.request.get('tknID'),
+                tknValue=self.request.get('tknValue'), 
+                whichuser=users.get_current_user()
+                )
 
         n.put()
-        return webapp2.redirect('/tokens')
+        xyz = '/tokens?templateName=' + templateName + '&langCode=' + langCode
+        return webapp2.redirect(xyz)
 
     def get(self):
         logout = None
@@ -128,14 +131,18 @@ class TokenClone(TokenBaseHandler):
 
         countmap_other_language={}
 #		templateName2 = 'khan-exercise'	 and 'templateName', templateName2
-        langCode2 = 'de'
+        langCode2 = ''
         if self.request.get('langCode'):
             langCode2=self.request.get('langCode')
+        if langCode2 == 'en':
+            langCode2 = 'xx'
+        if self.request.get('templateName'):
+            templateName2=self.request.get('templateName')
         if langCode2 != 'en': 
             q = db.GqlQuery("SELECT * FROM TokenValues " + 
                 "WHERE langCode = :1 AND templateName = :2 " +
                 "ORDER BY tknID ASC",
-                langCode2, "khan_exercise")
+                langCode2, templateName2)
             tokens = q.fetch(999)		
 #            tokens = TokenValues().all().filter('langCode =', langCode2)
             for token in tokens:
@@ -148,7 +155,7 @@ class TokenClone(TokenBaseHandler):
         q = db.GqlQuery("SELECT * FROM TokenValues " + 
             "WHERE langCode = :1 AND templateName = :2 " +
             "ORDER BY tknID ASC",
-            langCode, "khan_exercise")
+            langCode, templateName2)
         tokens = q.fetch(999)
 #        tokens = TokenValues.all().filter('langCode =', langCode)
 
@@ -160,18 +167,20 @@ class TokenClone(TokenBaseHandler):
         else:
               login = users.create_login_url('/tokens/create')
 
-        for token in tokens:
-            if token.tknID not in countmap_other_language:
-                n = TokenValues(templateName=token.templateName,
-                    langCode=self.request.get('langCode'),
-                    tknID=token.tknID,
-                    tknValue=token.tknValue,
-                    whichuser=users.get_current_user()
-                    )
-                n.put()
-                #print n.templateName, n.tknID
-            
-        self.render_template('TokenList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        if langCode2 == 'xx':
+            self.render_template('TokenStep1.html', {'languages':languages, 'langCode':langCode, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        else:		
+            for token in tokens:
+                if token.tknID not in countmap_other_language:
+                    n = TokenValues(templateName=token.templateName,
+                        langCode=self.request.get('langCode'),
+                        tknID=token.tknID,
+                        tknValue=token.tknValue,
+                        whichuser=users.get_current_user()
+                        )
+                    n.put()
+            self.render_template('TokenStep1.html', {'languages':languages, 'langCode':langCode, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+#        self.render_template('TokenList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 		
 		
 class TokenEdit(TokenBaseHandler):

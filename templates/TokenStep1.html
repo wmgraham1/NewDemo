@@ -12,7 +12,7 @@
 </select>
 <br/><input type="submit">
 </form>
-<h2 style="text-align: center;">Step1: Template Token Language Count</h2>
+<h2 style="text-align: center;">Template Token Count for Language: {{langCode}}</h2>
 <table width = 80% border=2 cellspacing=0 cellpadding=2>
   <thead>
     <tr>
@@ -29,7 +29,7 @@
 	  <td><big> <a href="/tokens?templateName={{key}}&langCode={{langCode}}">{{key}}</a> </big></td>
 	  <td style="text-align: center;"> {{countmap_en[key]}} </td>
 	  <td style="text-align: center;"> {{countmap_other_language[key]}} </td>
-  	  <td style="text-align: center;"><a href ="/tokens/clone?langCode={{langCode}}"> clone </a></td>
+  	  <td style="text-align: center;"><a href ="/tokens/clone?templateName={{key}}&langCode={{langCode}}"> clone </a></td>
     </tr>
     {% endfor %}	
 
