@@ -15,7 +15,7 @@ jinja_environment = \
     jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
 
-class TknBaseHandler(webapp2.RequestHandler):
+class TokenBaseHandler(webapp2.RequestHandler):
 
     @webapp2.cached_property
     def jinja2(self):
@@ -31,7 +31,7 @@ class TknBaseHandler(webapp2.RequestHandler):
         self.response.out.write(template.render(template_values))
 
 
-class TknStep1Page(TknBaseHandler):
+class TokenStep1Page(TokenBaseHandler):
 
     def get(self):
         languages = Languages.all()
@@ -66,9 +66,9 @@ class TknStep1Page(TknBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens/create')
-        self.render_template('TknStep1.html', {'languages':languages, 'langCode':langCode, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TokenStep1.html', {'languages':languages, 'langCode':langCode, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 
-class TknMainPage(TknBaseHandler):
+class TokenList(TokenBaseHandler):
 
     def get(self):
         tokens = TokenValues.all()
@@ -84,10 +84,10 @@ class TknMainPage(TknBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens/create')
-        self.render_template('TknList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TokenList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
-class CreateTkn(TknBaseHandler):
+class TokenCreate(TokenBaseHandler):
 
     def post(self):
         n = TokenValues(templateName=self.request.get('templateName'),
@@ -108,10 +108,32 @@ class CreateTkn(TknBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens/create')
-        self.render_template('TknCreate.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TokenCreate.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
-class EditTkn(TknBaseHandler):
+class TokenClone(TokenBaseHandler):
+
+    def get(self):
+        tokens = TokenValues.all()
+        #tokens = TokenValues.query()
+        if self.request.get('langCode'):
+            langCode=self.request.get('langCode')
+            #tokens = TokenValues.query(TokenValues.langCode == langCode)
+            tokens = tokens.filter('langCode =', langCode)
+        logout = None
+        login = None
+        currentuser = users.get_current_user()
+        self.render_template('TokenList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+		
+#    def get(self):
+#        logout = None
+#        login = None
+#        currentuser = users.get_current_user()
+#        self.render_template('TokenCreate.html', {'currentuser':currentuser, 'login':login, 'logout': logout})	 
+	
+		
+		
+class TokenEdit(TokenBaseHandler):
 
     def post(self, token_id):
         iden = int(token_id)
@@ -142,10 +164,10 @@ class EditTkn(TknBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens')
-        self.render_template('TknEdit.html', {'token': token,'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TokenEdit.html', {'token': token,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
-class DeleteTkn(TknBaseHandler):
+class TokenDelete(TokenBaseHandler):
 
     def get(self, token_id):
         iden = int(token_id)

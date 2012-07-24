@@ -24,7 +24,7 @@ import contactpage
 #import notes
 #import views
 from views import MainPage, CreateNote, DeleteNote, EditNote
-from TokenTest1 import TknMainPage, CreateTkn, DeleteTkn, EditTkn, TknStep1Page
+from Token import TokenStep1Page, TokenList, TokenCreate, TokenEdit, TokenDelete, TokenClone
 from Language import LangList, LangCreate, LangEdit, LangDelete
 from Template import TemplateList, TemplateCreate, TemplateEdit, TemplateDelete
 
@@ -43,11 +43,12 @@ app = webapp2.WSGIApplication([
     ('/notes/create', CreateNote), 
     ('/notes/edit/([\d]+)', EditNote),
     ('/notes/delete/([\d]+)', DeleteNote),
-    ('/tokens-step1', TknStep1Page),
-    ('/tokens', TknMainPage),
-    ('/tokens/create', CreateTkn), 
-    ('/tokens/edit/([\d]+)', EditTkn),
-    ('/tokens/delete/([\d]+)', DeleteTkn),
+    ('/tokens-step1', TokenStep1Page),
+    ('/tokens', TokenList),
+    ('/tokens/create', TokenCreate), 
+    ('/tokens/edit/([\d]+)', TokenEdit),
+    ('/tokens/delete/([\d]+)', TokenDelete),
+    ('/tokens/clone', TokenClone),
     ('/langs', LangList),
     ('/langs/create', LangCreate), 
     ('/langs/edit/([\d]+)', LangEdit),

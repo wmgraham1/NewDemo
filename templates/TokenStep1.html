@@ -19,7 +19,8 @@
       <!-- <th>Template/Language</th> -->
       <th>Template</th>
       <th>Language</th>
-      <th>Count</th>
+      <th>Eng Count</th>
+      <th>{{langCode}}</th>
       <th>Clone</th>
     </tr>
   </thead>
@@ -29,6 +30,8 @@
 	  <td><big> <a href="/tokens?langCode=en">{{key}}</a> </big></td>
 	  <td><big> <a href="/tokens?langCode=en">en</a> </big></td>
 	  <td> {{countmap_en[key]}} </td>
+	  <td> {{countmap_other_language[key]}} </td>
+  	  <td><a href ="/tokens/clone?langCode=de"> clone </a></td>
     </tr>
     {% endfor %}	
     {% for key in countmap_other_language %}
@@ -36,6 +39,8 @@
 	  <td><big> <a href="/tokens?langCode={{langCode}}">{{key}}</a> </big></td>
 	  <td><big> <a href="/tokens?langCode={{langCode}}">{{langCode}}</a> </big></td>
 	  <td> {{countmap_other_language[key]}} </td>
+  	  <td>nothing</td>
+  	  <td>nothing</td>
     </tr>
     {% endfor %}	
   </tbody>
