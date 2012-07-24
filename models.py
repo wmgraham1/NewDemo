@@ -65,6 +65,7 @@ class Obj(db.Model):
 #   tknValue = ndb.StringProperty()
 #   date = ndb.DateTimeProperty(auto_now_add=True)
 #   whichuser = ndb.UserProperty()
+
 class TokenValues(db.Model):
   templateName = db.StringProperty()
   langCode = db.StringProperty()

@@ -13,36 +13,26 @@
 <br/><input type="submit">
 </form>
 <h2 style="text-align: center;">Step1: Template Token Language Count</h2>
-<table width = 100% border=2 cellspacing=0 cellpadding=2>
+<table width = 80% border=2 cellspacing=0 cellpadding=2>
   <thead>
     <tr>
       <!-- <th>Template/Language</th> -->
-      <th>Template</th>
-      <th>Language</th>
-      <th>Eng Count</th>
-      <th>{{langCode}}</th>
-      <th>Clone</th>
+      <th style="text-align: center;">Template</th>
+      <th style="text-align: center;">Eng Tkn Count</th>
+      <th style="text-align: center;">{{langCode}} Tkn Count</th>
+      <th style="text-align: center;">Clone</th>
     </tr>
   </thead>
   <tbody>
     {% for key in countmap_en %}
 	<tr>
-	  <td><big> <a href="/tokens?langCode=en">{{key}}</a> </big></td>
-	  <td><big> <a href="/tokens?langCode=en">en</a> </big></td>
-	  <td> {{countmap_en[key]}} </td>
-	  <td> {{countmap_other_language[key]}} </td>
-  	  <td><a href ="/tokens/clone?langCode=de"> clone </a></td>
+	  <td><big> <a href="/tokens?templateName={{key}}&langCode={{langCode}}">{{key}}</a> </big></td>
+	  <td style="text-align: center;"> {{countmap_en[key]}} </td>
+	  <td style="text-align: center;"> {{countmap_other_language[key]}} </td>
+  	  <td style="text-align: center;"><a href ="/tokens/clone?langCode={{langCode}}"> clone </a></td>
     </tr>
     {% endfor %}	
-    {% for key in countmap_other_language %}
-	<tr>
-	  <td><big> <a href="/tokens?langCode={{langCode}}">{{key}}</a> </big></td>
-	  <td><big> <a href="/tokens?langCode={{langCode}}">{{langCode}}</a> </big></td>
-	  <td> {{countmap_other_language[key]}} </td>
-  	  <td>nothing</td>
-  	  <td>nothing</td>
-    </tr>
-    {% endfor %}	
+
   </tbody>
  </table>
 <br/>
