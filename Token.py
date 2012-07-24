@@ -77,7 +77,7 @@ class TokenList(TokenBaseHandler):
         templateName=self.request.get('templateName')
         q = db.GqlQuery("SELECT * FROM TokenValues " + 
                 "WHERE langCode = :1 AND templateName = :2 " +
-                "ORDER BY tknID DESC",
+                "ORDER BY tknID ASC",
                 langCode, templateName)
         tokens = q.fetch(999)
 #        tokens = TokenValues.all()
@@ -128,29 +128,27 @@ class TokenClone(TokenBaseHandler):
 
         countmap_other_language={}
 #		templateName2 = 'khan-exercise'	 and 'templateName', templateName2
-        langCode = 'de'
+        langCode2 = 'de'
         if self.request.get('langCode'):
             langCode2=self.request.get('langCode')
         if langCode2 != 'en': 
             q = db.GqlQuery("SELECT * FROM TokenValues " + 
                 "WHERE langCode = :1 AND templateName = :2 " +
-                "ORDER BY tknID DESC",
+                "ORDER BY tknID ASC",
                 langCode2, "khan_exercise")
             tokens = q.fetch(999)		
 #            tokens = TokenValues().all().filter('langCode =', langCode2)
             for token in tokens:
                 logging.info('QQQ: token: %s' % token.langCode)
-                if token.tknID in countmap_other_language:
-                        countmap_other_language[token.tknID]=countmap_other_language[token.tknID]+1
-                else:
+                if token.tknID not in countmap_other_language:
                         countmap_other_language[token.tknID]=1
 
         langCode='en'
 
         q = db.GqlQuery("SELECT * FROM TokenValues " + 
             "WHERE langCode = :1 AND templateName = :2 " +
-            "ORDER BY tknID DESC",
-            "langCode", "khan_exercise")
+            "ORDER BY tknID ASC",
+            langCode, "khan_exercise")
         tokens = q.fetch(999)
 #        tokens = TokenValues.all().filter('langCode =', langCode)
 
@@ -171,6 +169,7 @@ class TokenClone(TokenBaseHandler):
                     whichuser=users.get_current_user()
                     )
                 n.put()
+                #print n.templateName, n.tknID
             
         self.render_template('TokenList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 		

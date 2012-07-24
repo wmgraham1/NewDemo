@@ -15,4 +15,10 @@ indexes:
   - name: langCode
   - name: templateName
   - name: tknID
+
+- kind: TokenValues
+  properties:
+  - name: langCode
+  - name: templateName
+  - name: tknID
     direction: desc
