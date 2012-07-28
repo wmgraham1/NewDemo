@@ -5,6 +5,7 @@ from datetime import datetime
 #from google.appengine.api import users
 from google.appengine.ext import db
 from google.appengine.api import users
+from webapp2_extras import sessions
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = \
@@ -12,11 +13,32 @@ jinja_environment = \
 
 html = 'This is the more new homepage content.'
 
-class ViewHomePage(webapp2.RequestHandler):
+
+
+class BaseHandler(webapp2.RequestHandler):
+    def dispatch(self):
+        # Get a session store for this request.
+        self.session_store = sessions.get_store(request=self.request)
+
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
+
+    @webapp2.cached_property
+    def session(self):
+        # Returns a session using the default cookie key.
+        return self.session_store.get_session()
+
+
+class ViewHomePage(BaseHandler):
     def get(self):
 #        user = users.get_current_user()
 
 #        if user:
+            self.session['foo'] = 'Kun'
 
             logout = None
             login = None

@@ -6,6 +6,8 @@ from datetime import datetime
 from google.appengine.ext import db
 from google.appengine.ext import ndb
 from google.appengine.api import users
+from webapp2_extras import sessions
+from google.appengine.api import memcache
 
 from models import TokenValues
 from models import Languages
@@ -20,7 +22,7 @@ class TokenBaseHandler(webapp2.RequestHandler):
     @webapp2.cached_property
     def jinja2(self):
         return jinja2.get_jinja2(app=self.app)
-
+		
     def render_template(
         self,
         filename,
@@ -30,14 +32,52 @@ class TokenBaseHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template(filename)
         self.response.out.write(template.render(template_values))
 
+    def dispatch(self):
+        # Get a session store for this request.
+        self.session_store = sessions.get_store(request=self.request)
+
+        try:
+            # Dispatch the request.
+            webapp2.RequestHandler.dispatch(self)
+        finally:
+            # Save all sessions.
+            self.session_store.save_sessions(self.response)
+
+    @webapp2.cached_property
+    def session(self):
+        # Returns a session using the default cookie key.
+        return self.session_store.get_session()
+
 
 class TokenStep1Page(TokenBaseHandler):
 
     def get(self):
-        languages = Languages.all()
+        #languages = Languages.all()
+        languages = memcache.get("languages")
+        if languages is not None:
+           logging.info("get languages from memcache.")
+        else:
+           languages = Languages.all()
+           logging.info("Can not get languages from memcache.")
+           if not memcache.add("languages", languages, 10):
+               logging.info("Memcache set failed.")
+
+        if self.request.get('langCode'):
+            langCode=self.request.get('langCode')
+            self.session['langCode'] = langCode
+        else:
+            langCode = self.session.get('langCode')
+        if not langCode:
+            self.session['langCode'] = 'en'
+
+        #currLanguage = languages.filter('langCode =', langCode)
+        for language in languages:
+             if language.langCode == langCode:
+                langName = language.langName
+        if not langName:
+            langName = 'no language'
 
         countmap_en={}
-        langCode='en'
         tokens = TokenValues.all().filter('langCode =', langCode)
         for token in tokens:
             logging.info('QQQ: token: %s' % token.langCode)
@@ -47,9 +87,6 @@ class TokenStep1Page(TokenBaseHandler):
                     countmap_en[token.templateName]=1
 
         countmap_other_language={}
-        langCode = 'de'
-        if self.request.get('langCode'):
-            langCode=self.request.get('langCode')
         if langCode != 'en':    
             tokens = TokenValues().all().filter('langCode =', langCode)
             for token in tokens:
@@ -66,15 +103,25 @@ class TokenStep1Page(TokenBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens/create')
-        self.render_template('TokenStep1.html', {'languages':languages, 'langCode':langCode, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+
+        self.render_template('TokenStep1.html', {'languages':languages, 'langCode':langCode, 'langName':langName, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 class TokenList(TokenBaseHandler):
 
     def get(self):
         #langCode='en'
         langCode=self.request.get('langCode')
+
+        languages = Languages.all().filter('langCode =', langCode)
+        for language in languages:
+            if language.langCode == langCode:
+                langName = language.langName
+        if not langName:
+            langName = 'no language'
+		
         #templateName='khan-exercise'
         templateName=self.request.get('templateName')
+
         q = db.GqlQuery("SELECT * FROM TokenValues " + 
                 "WHERE langCode = :1 AND templateName = :2 " +
                 "ORDER BY tknID ASC",
@@ -94,7 +141,7 @@ class TokenList(TokenBaseHandler):
               logout = users.create_logout_url('/tokens' )
         else:
               login = users.create_login_url('/tokens/create')
-        self.render_template('TokenList.html', {'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TokenList.html', {'tokens': tokens, 'langName':langName, 'templateName':templateName, 'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
 class TokenCreate(TokenBaseHandler):
@@ -111,7 +158,8 @@ class TokenCreate(TokenBaseHandler):
 
         n.put()
         xyz = '/tokens?templateName=' + templateName + '&langCode=' + langCode
-        return webapp2.redirect(xyz)
+		#logging.info(xyz)
+        return webapp2.redirect('/tokens')
 
     def get(self):
         logout = None

@@ -11,9 +11,20 @@ class Languages(db.Model):
   langCode = db.StringProperty()
   langCode3 = db.StringProperty()
   langName = db.StringProperty()
+
+class TemplateTypes(db.Model):
+  Name = db.StringProperty()
+  TypeCode = db.StringProperty()
+  Description = db.StringProperty()
+  CreatedBy = db.UserProperty()
+  CreatedDate = db.DateTimeProperty(auto_now_add=True)
+  Status = db.StringProperty()
+  StatusBy = db.UserProperty()
+  StatusDate = db.DateTimeProperty()
   
 class Templates(db.Model):
   Name = db.StringProperty()
+  TypeCode = db.StringProperty()
   Description = db.StringProperty()
   FileName = db.StringProperty()
   CreatedBy = db.UserProperty()
@@ -68,11 +79,19 @@ class Obj(db.Model):
 
 class TokenValues(db.Model):
   templateName = db.StringProperty()
+  TypeCode = db.StringProperty()
   langCode = db.StringProperty()
   tknID = db.StringProperty()
   tknValue = db.StringProperty()
   date = db.DateTimeProperty(auto_now_add=True)
   whichuser = db.UserProperty()
+  createdDate = db.DateTimeProperty(auto_now_add=True)
+  createdBy = db.UserProperty(auto_current_user=True)
+  updatedDate = db.DateTimeProperty()
+  updatedBy = db.UserProperty()
+  status = db.StringProperty()  
+  statusDate = db.DateTimeProperty(auto_now_add=True)
+  statusBy = db.UserProperty(auto_current_user=True)
 
   
 #class Greeting(db.Model):

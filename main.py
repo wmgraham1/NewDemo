@@ -21,6 +21,7 @@ import homepage
 import pageadmin
 import aboutpage
 import contactpage
+
 #import notes
 #import views
 from views import MainPage, CreateNote, DeleteNote, EditNote
@@ -33,6 +34,10 @@ from Template import TemplateList, TemplateCreate, TemplateEdit, TemplateDelete
 #class MainHandler(webapp2.RequestHandler):
 #    def get(self):
 #        self.response.out.write('Hello brave new world!')
+config = {}
+config['webapp2_extras.sessions'] = {
+    'secret_key': 'my-super-secret-key',
+}
 
 app = webapp2.WSGIApplication([
 	('/', homepage.ViewHomePage),
@@ -58,7 +63,8 @@ app = webapp2.WSGIApplication([
     ('/templates/edit/([\d]+)', TemplateEdit),
     ('/templates/delete/([\d]+)', TemplateDelete)
 	],
-                              debug=True)
+								config=config)
+#							  debug=True)
 		  
 
 
