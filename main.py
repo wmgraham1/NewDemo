@@ -28,6 +28,7 @@ from views import MainPage, CreateNote, DeleteNote, EditNote
 from Token import TokenStep1Page, TokenList, TokenCreate, TokenEdit, TokenDelete, TokenClone
 from Language import LangList, LangCreate, LangEdit, LangDelete
 from Template import TemplateList, TemplateCreate, TemplateEdit, TemplateDelete
+from ListType import ListTypeList, ListTypeCreate, ListTypeEdit, ListTypeDelete
 
 
 # Below code is what the original exercise included
@@ -54,6 +55,10 @@ app = webapp2.WSGIApplication([
     ('/tokens/edit/([\d]+)', TokenEdit),
     ('/tokens/delete/([\d]+)', TokenDelete),
     ('/tokens/clone', TokenClone),
+    ('/listtypes', ListTypeList),
+    ('/listtypes/create', ListTypeCreate), 
+    ('/listtypes/edit/([\d]+)', ListTypeEdit),
+    ('/listtypes/delete/([\d]+)', ListTypeDelete),
     ('/langs', LangList),
     ('/langs/create', LangCreate), 
     ('/langs/edit/([\d]+)', LangEdit),
