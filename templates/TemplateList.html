@@ -8,6 +8,7 @@
   <thead>
     <tr>
       <th>Name</th>
+      <th>Template Type</th>
       <th>FileName</th>
       <th>Description</th>
 	  <th>Created Date</th>
@@ -22,6 +23,7 @@
     {% for templates in templates %}
 	<tr>
 	  <td> {{ templates.Name }} </td>
+	  <td> {{ templates.TemplateType }} </td>
 	  <td> {{ templates.FileName }} </td>
 	  <td> {{ templates.Description }} </td>
 	  <td> {{ templates.CreatedDate.strftime('%Y-%m-%d') }} </td>

@@ -15,7 +15,7 @@ class Languages(db.Model):
   CreatedDate = db.DateTimeProperty(auto_now_add=True)
 
 class ListItems(db.Model):
-  ListItemName = db.StringProperty()
+  ListItemName = db.StringProperty(required=True)
   ListTypeCode = db.StringProperty()
   Description = db.StringProperty()
   CreatedBy = db.UserProperty(auto_current_user=True)
@@ -73,13 +73,13 @@ class TemplateTypes(db.Model):
   StatusDate = db.DateTimeProperty(auto_now_add=True)
   
 class Templates(db.Model):
-  Name = db.StringProperty()
-  TypeCode = db.StringProperty()
+  Name = db.StringProperty(required=True)
+  TypeCode = db.StringProperty(required=True, choices=set(["template", "pagecontent", "function", "exercise"]), default="template")
   Description = db.StringProperty()
   FileName = db.StringProperty()
   CreatedBy = db.UserProperty(auto_current_user=True)
   CreatedDate = db.DateTimeProperty(auto_now_add=True)
-  Status = db.StringProperty()
+  Status = db.StringProperty(default="Pending Translation")
   StatusBy = db.UserProperty(auto_current_user=True)
   StatusDate = db.DateTimeProperty(auto_now_add=True)
  

@@ -13,7 +13,7 @@ jinja_environment = \
 
 html = 'This is more new about us content.'
 
-class ViewAboutPage(webapp2.RequestHandler):
+class ViewTestPage1(webapp2.RequestHandler):
     def get(self):
         iden = int(2)
         note = db.get(db.Key.from_path('Notes', iden))

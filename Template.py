@@ -44,13 +44,14 @@ class TemplateList(TemplateBaseHandler):
 class TemplateCreate(TemplateBaseHandler):
 
     def post(self):
-        n = Templates(Name=self.request.get('Name'),
-                  FileName=self.request.get('FileName'),
-                  Description=self.request.get('Description')
-                  , CreatedBy=users.get_current_user()
-                  , Status="active"
-                  , StatusBy=users.get_current_user()
-                  , StatusDate=datetime.now() # datetime.datetime.utcnow() - datetime.timedelta(hours = 5) for East Coast United States
+        n = Templates(Name=self.request.get('Name')
+                  , TemplateType=self.request.get('TemplateType')
+                  , FileName=self.request.get('FileName')
+                  , Description=self.request.get('Description')
+                  , Status=self.request.get('Status')
+                  #, CreatedBy=users.get_current_user()
+                  #, StatusBy=users.get_current_user()
+                  #, StatusDate=datetime.now() # datetime.datetime.utcnow() - datetime.timedelta(hours = 5) for East Coast United States
                   )
 
         n.put()
