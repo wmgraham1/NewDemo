@@ -71,11 +71,16 @@ class TokenStep1Page(TokenBaseHandler):
             self.session['langCode'] = 'en'
 
         #currLanguage = languages.filter('langCode =', langCode)
+        langName = 'no language'
         for language in languages:
-             if language.langCode == langCode:
+            if language.langCode == langCode:
                 langName = language.langName
-        if not langName:
-            langName = 'no language'
+        #if not langName:
+            #langName = 'no language'
+
+        PageCnt = self.session.get('PageCnt', 0)
+        #PageCnt = int(0 if PageCnt is None else PageCnt) + 1
+        self.session['PageCnt'] = PageCnt + 1
 
         countmap_en={}
         tokens = TokenValues.all().filter('langCode =', langCode)
@@ -104,7 +109,7 @@ class TokenStep1Page(TokenBaseHandler):
         else:
               login = users.create_login_url('/tokens/create')
 
-        self.render_template('TokenStep1.html', {'languages':languages, 'langCode':langCode, 'langName':langName, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('TokenStep1.html', {'PageCnt':PageCnt, 'languages':languages, 'langCode':langCode, 'langName':langName, 'countmap_en':countmap_en, 'countmap_other_language':countmap_other_language, 'tokens': tokens,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 class TokenList(TokenBaseHandler):
 
