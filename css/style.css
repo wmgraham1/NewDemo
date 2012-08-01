@@ -39,7 +39,7 @@ padding-top:35px;
 
 #main
 {
-width:641px;
+width:961px;
 height:auto;
 padding-bottom:20px;
 }
@@ -60,7 +60,7 @@ line-height:25px;
 {
 color:black;
 clear:both;
-width:641px;
+width:961px;
 height:25px;
 background-color:white;
 text-align:right;
@@ -84,7 +84,7 @@ line-height:25px;
 color:#ffffff;
 font-size:10px;
 clear:both;
-width:641px;
+width:961px;
 height:25px;
 background-image:url(header_footer.png);
 background-repeat:no-repeat;
@@ -112,7 +112,7 @@ border:none;
 #contentColumn
 {
 float:left;
-width:641px;
+width:961px;
 }
 
 #navColumn
@@ -134,7 +134,7 @@ margin:6px;
 .divider
 {
 background-image:url(divider.jpg);
-width:408px;
+width:728px;
 height:3px;
 margin-bottom:10px;
 

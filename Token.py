@@ -118,12 +118,13 @@ class TokenList(TokenBaseHandler):
         langCode=self.request.get('langCode')
 
         languages = Languages.all().filter('langCode =', langCode)
+        langName = 'no language'
         for language in languages:
             if language.langCode == langCode:
                 langName = language.langName
-        if not langName:
-            langName = 'no language'
-		
+        #if not langName:
+            #langName = 'no language'
+			
         #templateName='khan-exercise'
         templateName=self.request.get('templateName')
 
