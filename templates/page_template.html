@@ -2,18 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="/css/style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="/static/css/reset.css">
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" media="screen" href="/css/superfish.css" />
 <script type="text/javascript" src="/js/ckeditor/ckeditor.js"></script> 
 <title>Simple Test of inserting content in a template</title>
-</head>
+<script type="text/javascript" src="js/jquery-1.2.6.min.js"></script>
+<script type="text/javascript" src="js/hoverIntent.js"></script>
+<script type="text/javascript" src="js/superfish.js"></script>
+<script type="text/javascript">
+
+// initialise plugins
+jQuery(function(){
+	jQuery('ul.sf-menu').superfish();
+});
+
+</script>
 
 <body>
   <div id="main">
   	<h1>Sample Application Framework</h1>
   	<div id="header">
 
-          {% if currentuser %} 
+        <!--  {% if currentuser %} 
           {{currentuser}}
           {% if logout %} 
     <a href="{{logout}}">Logout</a>
@@ -31,8 +42,62 @@
         <a href="/listtypes">ListTypes</a>
         <a href="/contact">Contact Us</a>
         <a href="/templates">Templates</a>
-        <a href="/about">About us</a>
-    </div>
+        <a href="/about">About us</a>-->
+    	<ul class="sf-menu">
+		   {% if currentuser %} 
+			<li><a href='#'>{{currentuser}}</a></li>
+			    {% if logout %} 
+				<li><a href="{{logout}}">Logout</a></li>
+			    {% endif %} 
+		  {% else %} 
+					  {% if login %} 
+				<li><a href="{{login}}">Login</a></li>
+					  {% endif %} 
+			      {% endif %} 
+			
+			<li>
+				<a href="/">Home</a>
+			</li>
+			<li>
+				<a href="/content">Page Content Admin</a>
+				<ul>
+					<li>
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+							<li><a href="#">short</a></li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">menu item</a>
+						<ul>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+							<li><a href="#">menu item</a></li>
+						</ul>
+					</li>
+					
+					
+					
+				</ul>
+			</li>
+			<li>
+				<a href="/about">About us</a>
+			</li>
+			<li>
+				<a href="/notes">Notes</a>
+			</li>	
+			<li>
+				<a href="/contact">Contact Us</a>
+			</li>			
+		</ul>
+	
+	</div>
     <div id="contentColumn">
 
     <div class="wrapper">
