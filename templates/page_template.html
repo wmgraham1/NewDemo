@@ -22,6 +22,20 @@ jQuery(function(){
 <body>
   <div id="main">
   	<h1>Sample Application Framework</h1>
+	<div id="header_side">
+	<ul>
+	{% if currentuser %} 
+			<li><a href='#'>{{currentuser}}</a></li>
+			    {% if logout %} 
+				<li><a href="{{logout}}">Logout</a></li>
+			    {% endif %} 
+		  {% else %} 
+					  {% if login %} 
+				<li><a href="{{login}}">Login</a></li>
+					  {% endif %} 
+			      {% endif %} 
+	</ul>
+	</div>
   	<div id="header">
 
         <!--  {% if currentuser %} 
@@ -44,17 +58,7 @@ jQuery(function(){
         <a href="/templates">Templates</a>
         <a href="/about">About us</a>-->
     	<ul class="sf-menu">
-		   {% if currentuser %} 
-			<li><a href='#'>{{currentuser}}</a></li>
-			    {% if logout %} 
-				<li><a href="{{logout}}">Logout</a></li>
-			    {% endif %} 
-		  {% else %} 
-					  {% if login %} 
-				<li><a href="{{login}}">Login</a></li>
-					  {% endif %} 
-			      {% endif %} 
-			
+		   
 			<li>
 				<a href="/">Home</a>
 			</li>
