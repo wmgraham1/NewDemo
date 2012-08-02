@@ -24,8 +24,8 @@
 	  <td><big> {{ pagecontent.TemplateName }} </big></td>
 	  <td> {{ pagecontent.TokenTag }} </td>
 	  <td> {{ pagecontent.Status }} </td>
-	  <td> {{ pagecontent.StatusDate.strftime('%Y-%m-%d')  }} </td>
-	  <td> {{ pagecontent.CreatedDate.strftime('%Y-%m-%d')  }} </td>
+	  <td> {{ pagecontent.StatusDate }} </td>
+	  <td> {{ pagecontent.CreatedDate }} </td>
 	  <td> {{ pagecontent.CreatedBy }} </td>
 	  <td><a href ="/pagecontents/edit/{{ pagecontent.key().id() }}">edit </a></td>
     </tr>

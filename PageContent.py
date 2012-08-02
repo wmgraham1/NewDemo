@@ -96,45 +96,24 @@ class PageContentList(BaseHandler):
 class PageContentCreate(BaseHandler):
 
     def post(self):
-        #TemplateName = 'about-us'
-        #LangCode = 'en'
-        #TokenTag = 'content1'
-        #text = 'about-us'
-        #Status = 'Published'
         CreatedBy = users.get_current_user()
-        #StatusBy = users.get_current_user()
 	
         n = PageContents(TemplateName=self.request.get('TemplateName'),
                 LangCode=self.request.get('LangCode'),
                 TokenTag=self.request.get('TokenTag'),
                 ContentText=self.request.get('ContentText'),
-                Status='Published',
+                Status=self.request.get('Status'),
                 CreatedBy=CreatedBy,
                 StatusBy=CreatedBy
                 )
 
         n.put()
 
-        q = db.GqlQuery("SELECT * FROM PageContents " + 
-                "WHERE LangCode = :1 " +
-                "ORDER BY TemplateName ASC",
-                "en")
-        pagecontents = q.fetch(999)
-#		pagecontents = PageContents.all()
- 
-        logout = None
-        login = None
-        currentuser = users.get_current_user()
-        if currentuser:
-              logout = users.create_logout_url('/pagecontents' )
-        else:
-              login = users.create_login_url('/pagecontents/create')
-        self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'currentuser':currentuser, 'login':login, 'logout': logout})
-
-        #return webapp2.redirect('/pagecontents/')
+        return webapp2.redirect('/pagecontents/')
 
     def get(self):
-        self.render_template('PageContentCreate.html', {})
+        StatusList = ['Pending Translation', 'Pending Review', 'Published'];
+        self.render_template('PageContentCreate.html', {'StatusList': StatusList})
 
 
 class PageContentEdit(BaseHandler):
@@ -142,18 +121,26 @@ class PageContentEdit(BaseHandler):
     def post(self, pagecontent_id):
         iden = int(pagecontent_id)
         PageContent = db.get(db.Key.from_path('PageContents', iden))
-        PageContent.TemplateName = self.request.get('author')
+        currentuser = users.get_current_user()
+        PageContent.TemplateName = self.request.get('TemplateName')
         PageContent.LangCode = self.request.get('LangCode')
         PageContent.TokenTag = self.request.get('TokenTag')
         PageContent.ContentText = self.request.get('ContentText')
-        #PageContent.Status = self.request.get('Status')
+        PageContent.UpdatedBy = currentuser
+        PageContent.UpdatedDate = datetime.now()
+        StatusPrev = PageContent.Status
+        PageContent.Status = self.request.get('Status')
+        if not PageContent.Status == StatusPrev:
+            PageContent.StatusBy = currentuser
+            PageContent.StatusDate = datetime.now()            
         PageContent.put()
-        return webapp2.redirect('/')
+        return webapp2.redirect('/pagecontents')
 
     def get(self, pagecontent_id):
         iden = int(pagecontent_id)
         PageContent = db.get(db.Key.from_path('PageContents', iden))
-        self.render_template('PageContentEdit.html', {'PageContent': PageContent})
+        StatusList = ['Pending Translation', 'Pending Review', 'Published'];
+        self.render_template('PageContentEdit.html', {'PageContent': PageContent, 'StatusList': StatusList})
 
 
 class PageContentDelete(BaseHandler):

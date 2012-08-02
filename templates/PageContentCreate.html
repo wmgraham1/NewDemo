@@ -51,9 +51,22 @@
 			//]]>
 			</script>
     </div>
-    
   </div>
 
+  <div class="field-wrapper">
+    <div class="field-label">
+      <label for="id_Status">Status</label>:
+    </div>
+    <div class="field-field">
+        <select name="Status">
+        {% for Status in StatusList %}
+            <option value="{{Status}}" 
+            >{{Status}}</option>
+        {% endfor %}
+        </select>
+    </div>
+  </div>
+  
   <br>
   <input type="submit" value=submit />
 </form>
