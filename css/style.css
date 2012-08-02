@@ -178,3 +178,21 @@ color:#9B1313;
 border-bottom:dashed 1px #DD6A6A;
 }
 
+
+#header_side{
+	float:			right;
+
+
+}
+
+#header_side ul li {
+	width:			12em;
+	float:			left;
+	list-style: 		none;
+
+}
+
+
+#header_side li li ul {
+	width:			15em;
+}
