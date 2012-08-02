@@ -109,7 +109,9 @@ class PageContentCreate(BaseHandler):
 
         n.put()
 
-        return webapp2.redirect('/pagecontents/')
+        return webapp2.redirect('/pagecontents')
+        #return webapp2.redirect('/templates')
+
 
     def get(self):
         StatusList = ['Pending Translation', 'Pending Review', 'Published'];
