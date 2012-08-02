@@ -81,6 +81,7 @@ class PageContentList(BaseHandler):
 #                "en")
 #        pagecontents = q.fetch(999)
 		pagecontents = PageContents.all()
+		pagecontents = 'xxx'
  
         logout = None
         login = None
@@ -90,12 +91,15 @@ class PageContentList(BaseHandler):
         else:
               login = users.create_login_url('/pagecontents/create')
 #        self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'LangName':LangName, 'currentuser':currentuser, 'login':login, 'logout': logout})
-        self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'currentuser':currentuser, 'login':login, 'logout': logout})
+        # self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('PageContentList.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
 class PageContentCreate(BaseHandler):
 
     def post(self):
+        logging.info('QQQ: PageContentCreate POST')
+        #return webapp2.redirect('/pagecontents')
         CreatedBy = users.get_current_user()
 	
         n = PageContents(TemplateName=self.request.get('TemplateName'),
@@ -107,9 +111,14 @@ class PageContentCreate(BaseHandler):
                 StatusBy=CreatedBy
                 )
 
+        logging.info('QQQ: PageContentCreate before put')
         n.put()
+        logging.info('QQQ: PageContentCreate after put')
 
-        return webapp2.redirect('/pagecontents/')
+        # x = webapp2.redirect('/pagecontents/')
+        x = self.redirect('/pagecontents')
+        logging.info('QQQ: x: %s' % x)
+        return x
 
     def get(self):
         StatusList = ['Pending Translation', 'Pending Review', 'Published'];

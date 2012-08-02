@@ -44,6 +44,7 @@ class TemplateList(TemplateBaseHandler):
 class TemplateCreate(TemplateBaseHandler):
 
     def post(self):
+        #logging.error('QQQ: templatecreate POST')
         n = Templates(Name=self.request.get('Name')
                   , TemplateType=self.request.get('TemplateType')
                   , FileName=self.request.get('FileName')
@@ -53,8 +54,9 @@ class TemplateCreate(TemplateBaseHandler):
                   #, StatusBy=users.get_current_user()
                   #, StatusDate=datetime.now() # datetime.datetime.utcnow() - datetime.timedelta(hours = 5) for East Coast United States
                   )
-
+        #logging.error('QQQ: templatecreate before put')
         n.put()
+        #logging.error('QQQ: templatecreate after put')
         return webapp2.redirect('/templates')
 
     def get(self):
