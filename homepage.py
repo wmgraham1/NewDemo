@@ -57,19 +57,26 @@ class ViewHomePage(BaseHandler):
             logging.info("Can not get PageContentList from memcache.")
             PageContent = PageContents.all()
             PageContentList = {}
+            PgCntntCnt = -1
             for PageCntnt in PageContent:
+                PgCntntCnt = PgCntntCnt + 1
                 PageContentList[PageCntnt.TemplateName] = PageCntnt.key().id()
             if not memcache.add("PageContentList", PageContentList, 10):
                 logging.info("Memcache set failed.")
             else:
                 logging.info("Memcache set succeeded.")
 
-        template_id = PageContentList["homepage"]
-        iden = int(template_id)
-        PageContent = db.get(db.Key.from_path('PageContents', iden))
-        template_values = {
-            'content1': PageContent.ContentText
-            }
+        if PageContentList.has_key('homepage'):
+		#PgCntntCnt > 0:
+            template_id = (PageContentList['homepage'])
+            iden = int(template_id)
+            PageContent = db.get(db.Key.from_path('PageContents', iden))
+            template_values = {
+                'content1': PageContent.ContentText
+                }
+        else:
+            template_values = {
+                'content1': 'No home page content yet.'}
         template = jinja_environment.get_template('stdpage_block.html')
         self.response.out.write(template.render(template_values))
 		

@@ -115,10 +115,16 @@ class PageContentCreate(BaseHandler):
         n.put()
         logging.info('QQQ: PageContentCreate after put')
 
+#<<<<<<< HEAD
         # x = webapp2.redirect('/pagecontents/')
         x = self.redirect('/pagecontents')
         logging.info('QQQ: x: %s' % x)
         return x
+#=======
+#       return webapp2.redirect('/pagecontents')
+#       #return webapp2.redirect('/templates')
+
+#>>>>>>> 0a84a8345dcf5aeb86cca24885ee2d44be5ffce1
 
     def get(self):
         StatusList = ['Pending Translation', 'Pending Review', 'Published'];
