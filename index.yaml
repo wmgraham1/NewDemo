@@ -10,6 +10,16 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: PageContents
+  properties:
+  - name: LangCode
+  - name: TemplateName
+
+- kind: PageContents
+  properties:
+  - name: langCode
+  - name: TemplateName
+
 - kind: TokenValues
   properties:
   - name: langCode

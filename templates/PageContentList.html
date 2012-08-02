@@ -2,7 +2,9 @@
 {% block content %}
 <br/>
 <h2 style="text-align: center;">List of Content Blocks</h2>
-<p><a href="/contentblocks/create">Add New Content Block</a> </p>
+<p><a href="/pagecontents/create">Add New Content Block</a> </p>
+
+<p>this is the normal list page</p>
 
 <table width = 100% border=2 cellspacing=0 cellpadding=2>
   <thead>
@@ -17,19 +19,19 @@
     </tr>
   </thead>
   <tbody>
-    {% for contentblock in contentblocks %}
+    {% for pagecontent in pagecontents %}
 	<tr>
-	  <td><big> {{ contentblock.TemplateName }} </big></td>
-	  <td> {{ contentblock.TokenTag }} </td>
-	  <td> {{ contentblock.Status }} </td>
-	  <td> {{ contentblock.StatusDate.strftime('%Y-%m-%d')  }} </td>
-	  <td> {{ contentblock.CreatedDate.strftime('%Y-%m-%d')  }} </td>
-	  <td> {{ contentblock.CreatedBy }} </td>
-	  <td><a href ="/contentblocks/edit/{{ contentblock.key().id() }}">edit </a></td>
+	  <td><big> {{ pagecontent.TemplateName }} </big></td>
+	  <td> {{ pagecontent.TokenTag }} </td>
+	  <td> {{ pagecontent.Status }} </td>
+	  <td> {{ pagecontent.StatusDate.strftime('%Y-%m-%d')  }} </td>
+	  <td> {{ pagecontent.CreatedDate.strftime('%Y-%m-%d')  }} </td>
+	  <td> {{ pagecontent.CreatedBy }} </td>
+	  <td><a href ="/pagecontents/edit/{{ pagecontent.key().id() }}">edit </a></td>
     </tr>
     {% endfor %}	
   </tbody>
- </table>
+</table>
 
-<p><a href="/contentblocks/create">Add New Content Block</a> </p>
+<p><a href="/pagecontents/create">Add New Content Block</a> </p>
 {% endblock content %}

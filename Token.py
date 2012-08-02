@@ -14,7 +14,7 @@ from models import Languages
 
 TEMPLATE_DIR = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_environment = \
-    jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
+    jinja2.Environment(autoescape=True, loader=jinja2.FileSystemLoader(TEMPLATE_DIR))
 
 
 class TokenBaseHandler(webapp2.RequestHandler):

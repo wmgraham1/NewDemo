@@ -28,20 +28,19 @@ class ListTypes(db.Model):
   CreatedBy = db.UserProperty(auto_current_user=True)
   CreatedDate = db.DateTimeProperty(auto_now_add=True)
 
-class PageContent(db.Model):
+class PageContents(db.Model):
   """Models an individual pagecontent block with page name, content, createdby and createddate."""
   TemplateName = db.StringProperty()
   TokenTag = db.StringProperty()
   LangCode = db.StringProperty()
-  ContentText = db.StringProperty(multiline=True)
+  ContentText = db.TextProperty()
   CreatedBy = db.UserProperty(auto_current_user=True)
   CreatedDate = db.DateTimeProperty(auto_now_add=True)
-  UpdatedBy = db.UserProperty()
-  UpdatedDate = db.DateTimeProperty()
+  #UpdatedBy = db.UserProperty()
+  #UpdatedDate = db.DateTimeProperty()
+  Status = db.StringProperty()
   StatusBy = db.UserProperty(auto_current_user=True)
   StatusDate = db.DateTimeProperty(auto_now_add=True)
-  StatusDate = db.DateTimeProperty()
-  LangName = db.StringProperty()
   
 class Notes(db.Model):
   author = db.StringProperty()

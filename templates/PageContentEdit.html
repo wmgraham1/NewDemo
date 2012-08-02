@@ -3,25 +3,38 @@
 <script type="text/javascript" src="js/ckeditor/ckeditor.js"></script> 
 <form action="" method="post">
   <div class="field-wrapper">
-    
     <div class="field-label">
-      <label for="id_author">Author</label>:
+      <label for="id_TemplateName">TemplateName</label>:
     </div>
-    
     <div class="field-field">
-      <input type="text" name="author" value="{{ note.author }}" id="id_author" />
+      <input type="text" name="TemplateName" value="{{ PageContent.TemplateName }}" id="TemplateName" />
     </div>
-    
+  </div>
+
+  <div class="field-wrapper">
+    <div class="field-label">
+      <label for="id_LangCode">Language</label>:
+    </div>
+    <div class="field-field">
+      <input type="text" name="LangCode" value="{{ PageContent.LangCode }}" id="LangCode" />
+    </div>
+  </div>
+
+  <div class="field-wrapper">
+    <div class="field-label">
+      <label for="id_TokenTag">TokenTag</label>:
+    </div>
+    <div class="field-field">
+      <input type="text" name="TokenTag" value="{{ PageContent.TokenTag }}" id="TokenTag" />
+    </div>
   </div>
   
   <div class="field-wrapper">
-    
     <div class="field-label">
-      <label for="id_text">Text</label>:
+      <label for="id_ContentText">Text</label>:
     </div>
-    
     <div class="field-field">
-      <textarea class="field-field" rows="10" cols="50" id="editor2" name="text" >{{ note.text }}</textarea>
+      <textarea class="field-field" rows="10" cols="50" id="editor2" name="ContentText" >{{ PageContent.ContentText }}</textarea>
 	  <script type="text/javascript">
 		//<![CDATA[
 
@@ -31,53 +44,16 @@
 				
 			});
 				
-			
 		//]]>
 		</script>
 	</div>
-    
     <div style="clear: both;"></div>
-  </div>
-    
-
-  
-  <div class="field-wrapper">
-    
-    <div class="field-label">
-      <label for="id_priority">Priority</label>:
-    </div>
-    
-    <div class="field-field">
-      <select name="priority" id="id_priority">
-        <option value="High">High</option>
-        <option value="Medium" selected="selected">Medium</option>
-        <option value="Low">Low</option>
-      </select>
-      
-    </div>
-    
-  </div>
-  
-  <div class="field-wrapper">
-    
-    <div class="field-label">
-      <label for="id_status">Status</label>:
-    </div>
-    
-    <div class="field-field">
-      <select name="status" id="id_status">
-        <option value="On Going">On Going</option>
-        <option value="Completed">Completed</option>
-      </select>
-      
-    </div>
-    
   </div>
 
    <br />      
   
   <input type="submit" value="Update" />&nbsp;&nbsp;&nbsp;
-  <input type='button' name='Delete' value="Delete" onClick='locaton.href="/notes/delete/{{ note.key().id() }}";'>
-  <a href ="/notes/delete/{{ note.key().id() }}">Delete Note</a>
+  <input type='button' name='Delete' value="Delete" onClick='locaton.href="/pagecontents/delete/{{ PageContent.key().id() }}";'>
+  <a href ="/pagecontents/delete/{{ PageContent.key().id() }}">Delete Page Content</a>
 </form>
 {% endblock content %}

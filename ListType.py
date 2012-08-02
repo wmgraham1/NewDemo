@@ -36,9 +36,9 @@ class ListTypeList(BaseHandler):
         login = None
         currentuser = users.get_current_user()
         if currentuser:
-              logout = users.create_logout_url('/langs' )
+              logout = users.create_logout_url('/listtypes' )
         else:
-              login = users.create_login_url('/langs/create')
+              login = users.create_login_url('/listtypes/create')
         self.render_template('ListTypeList.html', {'listtypes': listtypes,'currentuser':currentuser, 'login':login, 'logout': logout})
 
 class ListTypeCreate(BaseHandler):
@@ -62,8 +62,8 @@ class ListTypeCreate(BaseHandler):
 
 class ListTypeEdit(BaseHandler):
 
-    def post(self, lang_id):
-        iden = int(lang_id)
+    def post(self, listtype_id):
+        iden = int(listtype_id)
         listtypes = db.get(db.Key.from_path('ListTypes', iden))
         currentuser = users.get_current_user()
 
