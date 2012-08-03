@@ -81,7 +81,7 @@ class PageContentList(BaseHandler):
 #                "en")
 #        pagecontents = q.fetch(999)
 		pagecontents = PageContents.all()
-		pagecontents = 'xxx'
+		# pagecontents = 'xxx'
  
         logout = None
         login = None
@@ -91,8 +91,8 @@ class PageContentList(BaseHandler):
         else:
               login = users.create_login_url('/pagecontents/create')
 #        self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'LangName':LangName, 'currentuser':currentuser, 'login':login, 'logout': logout})
-        # self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'currentuser':currentuser, 'login':login, 'logout': logout})
-        self.render_template('PageContentList.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
+        self.render_template('PageContentList.html', {'pagecontents': pagecontents, 'currentuser':currentuser, 'login':login, 'logout': logout})
+        # self.render_template('PageContentList.html', {'currentuser':currentuser, 'login':login, 'logout': logout})
 
 
 class PageContentCreate(BaseHandler):
