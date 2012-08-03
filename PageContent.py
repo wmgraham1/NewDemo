@@ -81,7 +81,10 @@ class PageContentList(BaseHandler):
 #                "en")
 #        pagecontents = q.fetch(999)
 		pagecontents = PageContents.all()
-		# pagecontents = 'xxx'
+        logging.info('QQQ: PageContents.all(): %s' % PageContents.all())
+        #logging.info('QQQ: pagecontents: %s' % pagecontents)
+        if not pagecontents:
+		    pagecontents = 'xxx'
  
         logout = None
         login = None
